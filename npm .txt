@@ -1,0 +1,9 @@
+#microservicios
+npm i --save @nestjs/microservices
+
+# archivo .env
+npm install @nestjs/config
+
+#transbank dev 
+npm install transbank-sdk 
+
