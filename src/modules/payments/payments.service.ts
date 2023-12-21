@@ -10,7 +10,6 @@ import {
   Options,
   WebpayPlus
 } from 'transbank-sdk';
-import { randomUUID } from 'crypto';
 
 
 @Injectable()
