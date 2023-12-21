@@ -20,7 +20,7 @@ export class PaymentsController {
     return await this.paymentsService.confirmPayment(confirmPaymentDto);
   }
 
-  @MessagePattern(transbankrMsg.CANCEL)
+  @MessagePattern(transbankrMsg.REMBOLSO)
   async cancelPayment(@Payload() cancelPaymentDto: CancelPaymentDto) {
     return await this.paymentsService.confirmPayment(cancelPaymentDto);
   }
