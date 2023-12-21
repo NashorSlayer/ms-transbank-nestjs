@@ -14,7 +14,7 @@ export class PaymentsController {
   }
 
   @MessagePattern(transbankrMsg.CONFIRM)
-  async confirmPayment(@Param('ws_token') ws_token: string) {
+  async confirmPayment(@Payload('ws_token') ws_token: string) {
     return await this.paymentsService.confirmPayment(ws_token);
   }
 
