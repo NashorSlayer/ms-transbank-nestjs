@@ -1,6 +1,6 @@
 export class CreatePaymentDto {
-    buyOrder: string
-    sessionId: string
+    buy_order: string
+    session_id: string
     amount: number
-    returnUrl: string
+    return_url: string
 }

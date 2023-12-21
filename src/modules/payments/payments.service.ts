@@ -10,19 +10,21 @@ import {
   Options,
   WebpayPlus
 } from 'transbank-sdk';
+import { randomUUID } from 'crypto';
 
 
 @Injectable()
 export class PaymentsService {
 
   async create(createPaymentDto: CreatePaymentDto) {
-    const { buyOrder, sessionId, amount, returnUrl } = createPaymentDto
+    const { buy_order, session_id, amount } = createPaymentDto
+    const return_url = 'http://localhost:3000/cart/checkout/'
     const tx = new WebpayPlus.Transaction(new Options(
       IntegrationCommerceCodes.WEBPAY_PLUS,
       IntegrationApiKeys.WEBPAY,
       Environment.Integration
     ));
-    const response = await tx.create(buyOrder, sessionId, amount, returnUrl);
+    const response = await tx.create(buy_order, session_id, amount, return_url);
     return {
       url: response.url,
       token: response.token,
