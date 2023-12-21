@@ -2,8 +2,6 @@ import { Controller, Param } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { PaymentsService } from './payments.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
-import { ConfirmPaymentDto } from './dto/confirm-payment.dto';
-import CancelPaymentDto from './dto/cancelar-payment.dto';
 import { transbankrMsg } from 'src/utils/constants';
 
 @Controller()
@@ -16,12 +14,12 @@ export class PaymentsController {
   }
 
   @MessagePattern(transbankrMsg.CONFIRM)
-  async confirmPayment(@Payload() confirmPaymentDto: ConfirmPaymentDto) {
-    return await this.paymentsService.confirmPayment(confirmPaymentDto);
+  async confirmPayment(@Param('ws_token') ws_token: string) {
+    return await this.paymentsService.confirmPayment(ws_token);
   }
 
-  @MessagePattern(transbankrMsg.REMBOLSO)
-  async cancelPayment(@Payload() cancelPaymentDto: CancelPaymentDto) {
-    return await this.paymentsService.confirmPayment(cancelPaymentDto);
-  }
+  // @MessagePattern(transbankrMsg.REMBOLSO)
+  // async cancelPayment(@Payload() cancelPaymentDto: CancelPaymentDto) {
+  //   return await this.paymentsService.confirmPayment(cancelPaymentDto);
+  // }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import CancelPaymentDto from './dto/cancelar-payment.dto';
-import { ConfirmPaymentDto } from './dto/confirm-payment.dto';
 
 import {
   Environment,
@@ -10,14 +9,19 @@ import {
   Options,
   WebpayPlus
 } from 'transbank-sdk';
+import { randomInt } from 'crypto';
 
 
 @Injectable()
 export class PaymentsService {
 
   async create(createPaymentDto: CreatePaymentDto) {
-    const { buy_order, session_id, amount } = createPaymentDto
+    const { amount } = createPaymentDto
     const return_url = 'http://localhost:3000/cart/checkout/'
+    const session_id = 'session_id'
+    const buy_order = 'buy_order0' + randomInt(1000).toString()
+
+
     const tx = new WebpayPlus.Transaction(new Options(
       IntegrationCommerceCodes.WEBPAY_PLUS,
       IntegrationApiKeys.WEBPAY,
@@ -30,14 +34,14 @@ export class PaymentsService {
     };
   }
 
-  async confirmPayment(confirmPayment: ConfirmPaymentDto) {
+  async confirmPayment(ws_token: string) {
+
     const tx = new WebpayPlus.Transaction(new Options(
       IntegrationCommerceCodes.WEBPAY_PLUS,
       IntegrationApiKeys.WEBPAY,
       Environment.Integration
     ));
-
-    const response = await tx.commit(confirmPayment.token_ws);
+    const response = await tx.commit(ws_token);
     const {
       vci,
       amount,
