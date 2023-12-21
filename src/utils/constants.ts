@@ -5,4 +5,5 @@ export enum RabbitMQ {
 export enum transbankrMsg {
     CREATE = 'CREATE_TRANSACTION',
     CONFIRM = 'CONFIRM_TRANSACTION',
+    REMBOLSO = 'REMBOLSO_TRANSACTION'
 }
